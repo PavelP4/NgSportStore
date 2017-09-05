@@ -12,4 +12,6 @@
         };
     });
     System.config({ paths: paths, packages: packages });
+
+    System.import("app/main").catch(function(err){ console.error(err); });
 })(this);

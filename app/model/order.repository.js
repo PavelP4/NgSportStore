@@ -9,16 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var AppComponent = (function () {
-    function AppComponent() {
+var static_datasource_1 = require("./static.datasource");
+var OrderRepository = (function () {
+    function OrderRepository(dataSource) {
+        this.dataSource = dataSource;
+        this.orders = [];
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: "app",
-            template: "<router-outlet></router-outlet>"
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    OrderRepository.prototype.getOrders = function () {
+        return this.orders;
+    };
+    OrderRepository.prototype.saveOrder = function (order) {
+        return this.dataSource.saveOrder(order);
+    };
+    OrderRepository = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [static_datasource_1.StaticDataSource])
+    ], OrderRepository);
+    return OrderRepository;
 }());
-exports.AppComponent = AppComponent;
+exports.OrderRepository = OrderRepository;

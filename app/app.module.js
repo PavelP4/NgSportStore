@@ -24,12 +24,20 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, store_module_1.StoreModule,
                 router_1.RouterModule.forRoot([
-                    { path: "store", component: store_component_1.StoreComponent,
+                    {
+                        path: "store", component: store_component_1.StoreComponent,
                         canActivate: [storeFirst_guard_1.StoreFirstGuard] },
-                    { path: "cart", component: cartDetail_component_1.CartDetailComponent,
+                    {
+                        path: "cart", component: cartDetail_component_1.CartDetailComponent,
                         canActivate: [storeFirst_guard_1.StoreFirstGuard] },
-                    { path: "checkout", component: checkout_component_1.CheckoutComponent,
+                    {
+                        path: "checkout", component: checkout_component_1.CheckoutComponent,
                         canActivate: [storeFirst_guard_1.StoreFirstGuard] },
+                    {
+                        path: "admin",
+                        loadChildren: "app/admin/admin.module#AdminModule",
+                        canActivate: [storeFirst_guard_1.StoreFirstGuard]
+                    },
                     { path: "**", redirectTo: "/store" }
                 ])
             ],

@@ -18,17 +18,35 @@ var RestDataSource = (function () {
         this.http = http;
         this.baseUrl = PROTOCOL + "://" + location.hostname + ":" + PORT + "/";
     }
+    RestDataSource.prototype.authenticate = function (user, pass) {
+        var _this = this;
+        return this.http.request(new http_1.Request({
+            method: http_1.RequestMethod.Post,
+            url: this.baseUrl + "login",
+            body: { name: user, password: pass }
+        })).map(function (response) {
+            var r = response.json();
+            _this.auth_token = r.success ? r.token : null;
+            return r.success;
+        });
+    };
     RestDataSource.prototype.getProducts = function () {
         return this.sendRequest(http_1.RequestMethod.Get, "products");
     };
     RestDataSource.prototype.saveOrder = function (order) {
         return this.sendRequest(http_1.RequestMethod.Post, "orders", order);
     };
-    RestDataSource.prototype.sendRequest = function (verb, url, body) {
-        return this.http.request(new http_1.Request({
+    RestDataSource.prototype.sendRequest = function (verb, url, body, auth) {
+        if (auth === void 0) { auth = false; }
+        var request = new http_1.Request({
             method: verb,
             url: this.baseUrl + url,
-            body: body })).map(function (response) { return response.json(); });
+            body: body
+        });
+        if (auth && this.auth_token != null) {
+            request.headers.set("Authorization", "Bearer<" + this.auth_token + ">");
+        }
+        return this.http.request(request).map(function (response) { return response.json(); });
     };
     RestDataSource = __decorate([
         core_1.Injectable(), 

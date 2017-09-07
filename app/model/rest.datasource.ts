@@ -6,6 +6,8 @@ import { Cart } from "./cart.model";
 import { Order } from "./order.model";
 import "rxjs/add/operator/map";
 
+export type ProductOrder = Product | Product[] | Order | Order[];
+
 const PROTOCOL = "http";
 const PORT = 3500;
 
@@ -30,16 +32,45 @@ export class RestDataSource {
         });
     }
 
-    getProducts(): Observable<Product | Product[] | Order | Order[]> {
+    getProducts(): Observable<ProductOrder> {
         return this.sendRequest(RequestMethod.Get, "products");
     }
 
-    saveOrder(order: Order): Observable<Product | Product[] | Order | Order[]> {
+    saveProduct(product: Product): Observable<ProductOrder> {
+        return this.sendRequest(RequestMethod.Post, "products", product, true);
+    }
+
+    updateProduct(product): Observable<ProductOrder> {
+        return this.sendRequest(RequestMethod.Put,
+            `products/${product.id}`, product, true);
+    }
+
+    deleteProduct(id: number): Observable<ProductOrder> {
+        return this.sendRequest(RequestMethod.Delete,
+            `products/${id}`, null, true);
+    }
+
+    getOrders(): Observable<ProductOrder> {
+        return this.sendRequest(RequestMethod.Get,
+            "orders", null, true);
+    }
+
+    deleteOrder(id: number): Observable<ProductOrder> {
+        return this.sendRequest(RequestMethod.Delete,
+            `orders/${id}`, null, true);
+    }
+
+    updateOrder(order: Order): Observable<ProductOrder> {
+        return this.sendRequest(RequestMethod.Put,
+            `orders/${order.id}`, order, true);
+    }
+
+    saveOrder(order: Order): Observable<ProductOrder> {
         return this.sendRequest(RequestMethod.Post, "orders", order);
     }
    
     private sendRequest(verb: RequestMethod,
-            url: string, body?: Product | Order, auth: boolean = false): Observable<Product | Product[] | Order | Order[]> {
+            url: string, body?: Product | Order, auth: boolean = false): Observable<ProductOrder> {
         
         let request = new Request({
             method: verb,

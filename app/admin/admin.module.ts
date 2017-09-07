@@ -9,6 +9,7 @@ import { ProductTableComponent } from "./productTable.component";
 import { ProductEditorComponent } from "./productEditor.component";
 import { OrderTableComponent } from "./orderTable.component";
 
+/*
 let routing = RouterModule.forChild([
     { path: "auth", component: AuthComponent },
     { 
@@ -23,9 +24,10 @@ let routing = RouterModule.forChild([
     },
     { path: "**", redirectTo: "auth" }
 ]);
+*/
 
 @NgModule({
-    imports: [CommonModule, FormsModule, routing],
+    imports: [CommonModule, FormsModule, RouterModule],
     providers: [AuthGuard],
     declarations: [AuthComponent, AdminComponent,
         ProductTableComponent, ProductEditorComponent, OrderTableComponent]

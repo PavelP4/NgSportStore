@@ -18,13 +18,7 @@
 		"bootstrap": "4.0.0-alpha.4",
 		"font-awesome": "4.7.0",
 		"intl": "1.2.5",
-		"html5-history-api": "4.2.7",
-		"@angular/compiler-cli": "2.2.0",
-		"rollup": "0.36.3",
-		"rollup-plugin-node-resolve": "2.0.0",
-		"rollup-plugin-commonjs": "5.0.5",
-		"rollup-plugin-uglify": "1.0.1",
-		"rollup-plugin-alias": "1.2.0"
+		"html5-history-api": "4.2.7"
 		},
 		"devDependencies": {
 			"lite-server": "2.2.2",
@@ -33,7 +27,13 @@
 			"concurrently": "2.2.0",
 			"systemjs-builder": "0.15.32",
 			"json-server": "0.8.21",
-			"jsonwebtoken": "7.1.9"
+			"jsonwebtoken": "7.1.9",
+			"@angular/compiler-cli": "2.2.0",
+			"rollup": "0.36.3",
+			"rollup-plugin-node-resolve": "2.0.0",
+			"rollup-plugin-commonjs": "5.0.5",
+			"rollup-plugin-uglify": "1.0.1",
+			"rollup-plugin-alias": "1.2.0"
 		},
 		"scripts": {
 			"start": "concurrently \"npm run tscwatch\" \"npm run lite\" \"npm run json\" ",
